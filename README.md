@@ -2,7 +2,9 @@
 
 A simple to-do list site which demonstrate latest web technologies and make it easy to create new website projects.
 
-## Technologies
+## Libaries included
+
+Before using this repository, please read and accept licenses of corresponding libraries.
 
 * [jQuery](https://jquery.com/)
 * [React](https://facebook.github.io/react/)
@@ -24,8 +26,8 @@ A simple to-do list site which demonstrate latest web technologies and make it e
 * Download this repository as ZIP and extract
 * Run `npm install`
 * Run `node publish -nlr`
-  * -n, don't uglify (a.k.a. nomin)
-  * -l, keep watch loop
-  * -r, enable LiveReload
+  * `-n`, don't uglify (a.k.a. nomin)
+  * `-l`, keep watch loop
+  * `-r`, enable LiveReload
 * Host a web server with root on `/publish`
   * We recommend [detour-proxy](https://npmjs.org/detour-proxy) if you have web APIs
