@@ -1,6 +1,6 @@
 # C&R Website Boilerplate
 
-A simple to-do list site which demonstrate latest web technologies and make it easy to create new website project
+A simple to-do list site which demonstrate latest web technologies and make it easy to create new website projects.
 
 ## Technologies
 
@@ -19,3 +19,13 @@ A simple to-do list site which demonstrate latest web technologies and make it e
     * `_list`, private accessor
 	* `getList`, public getter
 	* `setList`, private setter
+
+## How to use
+* Download this repository as ZIP and extract
+* Run `npm install`
+* Run `node publish -nlr`
+  * -n, don't uglify (a.k.a. nomin)
+  * -l, keep watch loop
+  * -r, enable LiveReload
+* Host a web server with root on `/publish`
+  * We recommend [detour-proxy](https://npmjs.org/detour-proxy) if you have web APIs
