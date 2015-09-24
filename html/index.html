@@ -16,15 +16,13 @@
 --- javascript
 <script type="text/javascript" src="js/index.html.js"></script>
 <script type="text/jsx">
-!function (App, React) {
-    'use strict';
+'use strict';
 
-    var {Actions, store, Page} = window.App.Page;
+import {Actions, store, Page} from "indexpage"
 
-    React.render(
-        <Page />,
-        document.getElementById('root')
-    );
-}(window.App, window.React);
+React.render(
+    <Page />,
+    document.getElementById('root')
+);
 </script>
 ---

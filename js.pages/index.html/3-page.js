@@ -1,6 +1,8 @@
-var Page = local.Page = React.createClass({
+import {default as StateFrom} from "statefrom";
+
+export var Page = window.React.createClass({
     mixins: [
-        window.App.Mixins.StateFrom(store, {
+        StateFrom(store, {
             todos: store.getTodos
         })
     ],
