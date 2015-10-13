@@ -1,5 +1,5 @@
 {
-  "name": "publishjs-boilerplate",
+  "name": "cnr-website-boilerplate",
   "version": "0.0.1-dev",
   "description": "Sample website with PublishJS",
   "keywords": [
@@ -8,13 +8,16 @@
     "publishjs"
   ],
   "license": "MIT",
-  "email": "william.wong@candrholdings.com",
-  "main": "src/index.js",
+  "author": {
+    "email": "william.wong@candrholdings.com",
+    "name": "William Wong"
+  },
   "repository": {
     "type": "git",
-    "url": "https://github.com/candrholdings/publishjs-boilerplate.git"
+    "url": "https://github.com/candrholdings/cnr-website-boilerplate.git"
   },
   "scripts": {
+    "postinstall": "node publish.js --clean",
     "test": "vows src/test/*-test.js --spec"
   },
   "dependencies": {
