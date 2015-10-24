@@ -1,6 +1,9 @@
+//jshint -W067
+
 'use strict';
 
 import * as todosreducers from 'todosreducers';
+import {default as DevTools} from 'devtools';
 
 var {
         Immutable,
@@ -10,14 +13,18 @@ var {
         List
     } = Immutable;
 
-const createStoreWithMiddleware = Redux.applyMiddleware(
-    window.ReduxThunk
-)(Redux.createStore);
+const finalCreateStore = Redux.compose(
+    Redux.applyMiddleware(
+        window.ReduxThunk
+    )(Redux.createStore),
+    DevTools.instrument(),
+    window.ReduxDevtools.persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+);
 
 const rootReducer = Redux.combineReducers({
     ...todosreducers
 });
 
-export default createStoreWithMiddleware(rootReducer, {
+export default finalCreateStore(rootReducer, {
     todos: List()
 });

@@ -1,7 +1,7 @@
 ---
 {
     "__layout": "default.html",
-    "title": "WebDriver IDE"
+    "title": "Website Boilerplate"
 }
 ---
 
@@ -19,10 +19,14 @@
 
 import {default as Page} from 'indexpage';
 import {default as store} from 'store';
+import {default as DevTools} from 'devtools';
 
 ReactDOM.render(
-    <window.ReactRedux.Provider store={store}>
-        <Page />
+    <window.ReactRedux.Provider store={store}>    
+        <div>
+            <Page />
+            <DevTools />
+        </div>
     </window.ReactRedux.Provider>,
     document.getElementById('root')
 );

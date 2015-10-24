@@ -3,7 +3,13 @@
 !function (path) {
     'use strict';
 
-    var program = require('commander');
+    var program = require('commander'),
+        jshintOptions = {
+            browser: true,
+            esnext: false,
+            expr: true,
+            newcap: false
+        };
 
     program
         .version('0.0.1')
@@ -66,7 +72,7 @@
                 pipe.from('html/')
                     .assemble()
                     .jsx({ blacklist: ['strict'], modules: 'umd' })
-                    .jshint({ expr: true, browser: true })
+                    .jshint(jshintOptions)
                     .save('./')
                     .run(callback);
             },
@@ -82,9 +88,28 @@
                     .run(callback);
             },
             js: function (pipe, callback) {
-                pipe.from('js/')
-                    .jsx({ blacklist: ['strict'], modules: 'umd' })
-                    .jshint({ expr: true, browser: true, newcap: false })
+                pipe.from([
+                        // pipe.from('js.redux')
+                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
+                        //     .merge('1-redux.js'),
+                        // pipe.from('js.react-redux')
+                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
+                        //     .merge('2-react-redux.js')
+                        //     .save('2-react-redux.js'),
+                        // pipe.from('js.redux-devtools')
+                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
+                        //     .merge('3-redux-devtools.js'),
+                        // pipe.from('js.redux-devtools-dock-monitor')
+                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
+                        //     .merge('4-redux-devtools-dock-monitor.js'),
+                        // pipe.from('js.redux-devtools-log-monitor')
+                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
+                        //     .merge('5-redux-devtools-log-monitor.js'),
+                        pipe.from('js/')
+                            .jsx({ blacklist: ['strict'], modules: 'umd' })
+                            // .jshint(jshintOptions)
+                            .merge('9-others.js')
+                    ])
                     .merge()
                     .uglify()
                     .save('js/all.js')
