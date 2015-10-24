@@ -84,7 +84,7 @@
             js: function (pipe, callback) {
                 pipe.from('js/')
                     .jsx({ blacklist: ['strict'], modules: 'umd' })
-                    .jshint({ expr: true, browser: true })
+                    .jshint({ expr: true, browser: true, newcap: false })
                     .merge()
                     .uglify()
                     .save('js/all.js')
@@ -94,14 +94,6 @@
                 pipe.from(program.nomin ? 'js.lib/' : 'js.lib.min/')
                     .merge('lib.js')
                     .save('js/lib.js')
-                    .run(callback);
-            },
-            'js.pages.index.html': function (pipe, callback) {
-                pipe.from('js.pages/index.html/')
-                    .merge('indexpage.js')
-                    .jsx({ blacklist: ['strict'], modules: 'umd' })
-                    .uglify()
-                    .save('js/index.html.js')
                     .run(callback);
             },
             json: function (pipe, callback) {

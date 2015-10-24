@@ -14,14 +14,16 @@
 ---
 
 --- javascript
-<script type="text/javascript" src="js/index.html.js"></script>
 <script type="text/jsx">
 'use strict';
 
-import {Actions, store, Page} from "indexpage"
+import {default as Page} from 'indexpage';
+import {default as store} from 'store';
 
 ReactDOM.render(
-    <Page />,
+    <window.ReactRedux.Provider store={store}>
+        <Page />
+    </window.ReactRedux.Provider>,
     document.getElementById('root')
 );
 </script>

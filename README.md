@@ -9,18 +9,10 @@ Before using this repository, please read and accept licenses of corresponding l
 * [jQuery](https://jquery.com/)
 * [React](https://facebook.github.io/react/)
 * [Immutable](http://facebook.github.io/immutable-js/)
-* [Reflux](https://github.com/reflux/refluxjs)
+* [Redux](https://github.com/rackt/redux)
 * [Bootstrap](https://getbootstrap.com)
 * [PublishJS](https://github.com/candrholdings/publishjs)
 * [`window.fetch` polyfill](https://github.com/github/fetch)
-
-## Custom libraries
-* Reflux mixins
-  * `StateFrom`, link Reflux store properties to React component state
-  * `StoreProperty`, create store properties quickly
-    * `_list`, private accessor
-	* `getList`, public getter
-	* `setList`, private setter
 
 ## How to use
 * Download this repository as ZIP and extract

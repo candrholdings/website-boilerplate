@@ -1,30 +1,37 @@
-import {default as StateFrom} from "statefrom";
+import * as todosactions from 'todosactions';
 
-export var Page = window.React.createClass({
-    mixins: [
-        StateFrom(store, {
-            todos: store.getTodos
-        })
-    ],
+var {
+        ReactRedux
+    } = this;
+
+function select(state) {
+    var {todos} = state;
+
+    return {todos};
+}
+
+export default ReactRedux.connect(select)(window.React.createClass({
     getInitialState: function () {
         return {
             newTodo: 'Buy milk'
         };
     },
     onAddClick: function (evt) {
-        Actions.add(this.state.newTodo);
+        this.props.dispatch(todosactions.addTodo(this.state.newTodo));
         this.setState({ newTodo: null });
     },
-    onRemoveClick: function (index) {
-        this.setState({ newTodo: this.state.todos.get(index) });
-        Actions.remove(index);
+    onRemoveClick: function (id) {
+        var todo = this.props.todos.find(todo => todo.get('id') === id);
+
+        todo && this.setState({ newTodo: todo.get('text') });
+        this.props.dispatch(todosactions.removeTodo(id));
     },
     onNewTodoChange: function (evt) {
         this.setState({ newTodo: evt.target.value });
     },
     render: function () {
         var that = this,
-            {state} = that;
+            {props, state} = that;
 
         return (
             <div className="container">
@@ -33,9 +40,15 @@ export var Page = window.React.createClass({
                         <h1>To-do List</h1>
                         <ul>
                         {
-                            state.todos.map((todo, index) => {
+                            props.todos.map(todo => {
+                                var id = todo.get('id');
+
                                 return (
-                                    <li key={index}><button className="btn btn-sm" onClick={that.onRemoveClick.bind(null, index)}><span className="glyphicon glyphicon-remove" /></button> {todo}</li>
+                                    <li key={id}>
+                                        <button className="btn btn-sm" onClick={that.onRemoveClick.bind(null, id)}>
+                                            <span className="glyphicon glyphicon-remove" />
+                                        </button> {todo.get('text')}
+                                    </li>
                                 );
                             })
                         }
@@ -51,4 +64,4 @@ export var Page = window.React.createClass({
             </div>
         );
     }
-});
+}));

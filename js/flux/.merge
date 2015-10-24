@@ -1,0 +1,3 @@
++actions/*
++reducers/*
++store.js
