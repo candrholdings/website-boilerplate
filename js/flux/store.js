@@ -14,12 +14,9 @@ var {
     } = Immutable;
 
 const finalCreateStore = Redux.compose(
-    Redux.applyMiddleware(
-        window.ReduxThunk
-    )(Redux.createStore),
     DevTools.instrument(),
     window.ReduxDevtools.persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
-);
+)(Redux.applyMiddleware(window.ReduxThunk)(Redux.createStore));
 
 const rootReducer = Redux.combineReducers({
     ...todosreducers
