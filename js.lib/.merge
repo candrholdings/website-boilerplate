@@ -1,6 +1,6 @@
 +jquery-*
 +react-with-addons-*
-+redux-3*
++/^redux-{d}/
 +react-redux-*
 +redux-thunk-*
 +redux-devtools.js

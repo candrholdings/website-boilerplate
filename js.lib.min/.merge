@@ -1,3 +1,8 @@
 +jquery-*
 +react-with-addons-*
-+redux-*
++/^redux-{d}/
++react-redux-*
++redux-thunk-*
++redux-devtools.js
++redux-devtools-dock-monitor.js
++redux-devtools-log-monitor.js
