@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["react", "react-redux"], factory);
 	else if(typeof exports === 'object')
-		exports["ReduxDevtools"] = factory(require("react"), require("react-redux"));
+		exports["ReduxDevTools"] = factory(require("react"), require("react-redux"));
 	else
-		root["ReduxDevtools"] = factory(root["React"], root["ReactRedux"]);
+		root["ReduxDevTools"] = factory(root["React"], root["ReactRedux"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_60__, __WEBPACK_EXTERNAL_MODULE_61__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

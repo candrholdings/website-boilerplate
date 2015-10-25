@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["react"], factory);
 	else if(typeof exports === 'object')
-		exports["ReduxDevtoolsDockMonitor"] = factory(require("react"));
+		exports["ReduxDevToolsDockMonitor"] = factory(require("react"));
 	else
-		root["ReduxDevtoolsDockMonitor"] = factory(root["React"]);
+		root["ReduxDevToolsDockMonitor"] = factory(root["React"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_26__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

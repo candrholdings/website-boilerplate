@@ -1,8 +1,8 @@
 //jshint -W067
 
-export default window.ReduxDevtools.createDevTools(
-  <window.ReduxDevtoolsDockMonitor toggleVisibilityKey='H'
+export default window.ReduxDevTools.createDevTools(
+  <window.ReduxDevToolsDockMonitor toggleVisibilityKey='H'
                                    changePositionKey='Q'>
-    <window.ReduxDevtoolsLogMonitor />
-  </window.ReduxDevtoolsDockMonitor>
+    <window.ReduxDevToolsLogMonitor />
+  </window.ReduxDevToolsDockMonitor>
 );

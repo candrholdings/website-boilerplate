@@ -15,7 +15,7 @@ var {
 
 const finalCreateStore = Redux.compose(
     DevTools.instrument(),
-    window.ReduxDevtools.persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
+    window.ReduxDevTools.persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
 )(Redux.applyMiddleware(window.ReduxThunk)(Redux.createStore));
 
 const rootReducer = Redux.combineReducers({

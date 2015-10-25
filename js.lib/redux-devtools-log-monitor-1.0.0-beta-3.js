@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["react", "redux-devtools"], factory);
 	else if(typeof exports === 'object')
-		exports["ReduxDevtoolsLogMonitor"] = factory(require("react"), require("redux-devtools"));
+		exports["ReduxDevToolsLogMonitor"] = factory(require("react"), require("redux-devtools"));
 	else
-		root["ReduxDevtoolsLogMonitor"] = factory(root["React"], root["ReduxDevtools"]);
+		root["ReduxDevToolsLogMonitor"] = factory(root["React"], root["ReduxDevTools"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_138__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
