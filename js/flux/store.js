@@ -13,10 +13,10 @@ var {
         List
     } = Immutable;
 
-const finalCreateStore = Redux.compose(
+const finalCreateStore = Redux.applyMiddleware(window.ReduxThunk)(Redux.compose(
     DevTools.instrument(),
     window.ReduxDevTools.persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
-)(Redux.applyMiddleware(window.ReduxThunk)(Redux.createStore));
+)(Redux.createStore));
 
 const rootReducer = Redux.combineReducers({
     ...todosreducers
