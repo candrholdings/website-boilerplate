@@ -10,6 +10,7 @@ Before using this repository, please read and accept licenses of corresponding l
 * [React](https://facebook.github.io/react/)
 * [Immutable](http://facebook.github.io/immutable-js/)
 * [Redux](https://github.com/rackt/redux)
+* [Reselect](https://github.com/rackt/reselect)
 * [Bootstrap](https://getbootstrap.com)
 * [PublishJS](https://github.com/candrholdings/publishjs)
 * [Q](https://github.com/kriskowal/q)
