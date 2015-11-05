@@ -1,3 +1,4 @@
+import * as messageofthedayactions from 'messageofthedayactions';
 import * as todosactions from 'todosactions';
 
 var {
@@ -5,12 +6,15 @@ var {
     } = this;
 
 function select(state) {
-    var {todos} = state;
+    var {messageOfTheDay, todos} = state;
 
-    return {todos};
+    return {messageOfTheDay, todos};
 }
 
 export default ReactRedux.connect(select)(window.React.createClass({
+    componentDidMount: function () {
+        this.props.dispatch(messageofthedayactions.fetchMessageOfTheDay());
+    },
     getInitialState: function () {
         return {
             newTodo: 'Buy milk'
@@ -38,6 +42,7 @@ export default ReactRedux.connect(select)(window.React.createClass({
                 <div className="row">
                     <div className="col-md-12">
                         <h1>To-do List</h1>
+                        <pre>{props.messageOfTheDay}</pre>
                         <ul>
                         {
                             props.todos.map(todo => {

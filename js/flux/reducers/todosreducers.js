@@ -11,15 +11,17 @@ var {
     } = Immutable;
 
 function todos(state = 0, action) {
+    var {payload} = action;
+
     switch (action.type) {
     case todosactions.ADD_TODO:
         return state.push(Map({
             id: Date.now(),
-            text: action.todo
+            text: payload.todo
         }));
 
     case todosactions.REMOVE_TODO:
-        return state.filterNot(todo => todo.get('id') === action.id);
+        return state.filterNot(todo => todo.get('id') === payload.id);
 
     default:
         return state;
