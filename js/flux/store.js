@@ -6,8 +6,6 @@ import {default as todos} from 'flux/reducers/todosreducers';
 import {default as messageOfTheDay} from 'flux/reducers/messageofthedayreducer';
 import {default as DevTools} from 'flux/devtools';
 
-var promiseMiddleware = window.ReduxPromiseMiddleware;
-
 var {
         Immutable,
         Redux
@@ -17,7 +15,7 @@ var {
     } = Immutable;
 
 const finalCreateStore = Redux.applyMiddleware(
-    promiseMiddleware(),
+    window.ReduxPromiseMiddleware(),
     window.ReduxThunk
 )(Redux.compose(
     DevTools.instrument(),

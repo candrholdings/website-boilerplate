@@ -108,7 +108,7 @@
                                 .merge()
                                 .save(`js/${name}.html.js`),
                             pipe.from([
-                                    pipe.from('less/constants/')
+                                    pipe.from('less/constants.less')
                                         .merge('1-constants.less'),
                                     pipe.from(`pages/${name}/less/`)
                                         .merge('2-pages.less')

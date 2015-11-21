@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "commander": "^2.8.1",
-    "publishjs": "^0.0.2",
+    "publishjs": "^0.0.4",
     "publishjs-assemble": "^0.0.2",
     "publishjs-cssmin": "^0.0.2",
     "publishjs-jshint": "^0.0.2",
