@@ -49,7 +49,11 @@
         },
         pipes: {
             less: function (pipe, callback) {
-                pipe.from('less/')
+                pipe.from([
+                        pipe.from('less/'),
+                        pipe.from('widgets/')
+                            .rename(filename => /\.(le|c)ss$/.test(filename) ? filename : 0)
+                    ])
                     .merge()
                     .less()
                     .cssmin()
@@ -78,8 +82,19 @@
                     .run(callback);
             },
             js: function (pipe, callback) {
-                pipe.from('js/')
-                    .jsx(babelOptions)
+                pipe.from([
+                        pipe.from('js/')
+                            .jsx(babelOptions),
+                        pipe.from('widgets/')
+                            .rename(filename => {
+                                if (/\.js$/.test(filename)) {
+                                    return 'widgets/' + filename.split('/').pop();
+                                } else {
+                                    return 0;
+                                }
+                            })
+                            .jsx(babelOptions)
+                    ])
                     .jshint(jshintOptions)
                     .merge()
                     .uglify()

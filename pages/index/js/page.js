@@ -1,5 +1,9 @@
+'use strict';
+
 import * as messageofthedayactions from 'flux/actions/messageofthedayactions';
 import * as todosactions from 'flux/actions/todosactions';
+
+import {default as Tag} from 'widgets/tag';
 
 var {
         ReactRedux
@@ -49,9 +53,7 @@ export default ReactRedux.connect(state => {
 
                                 return (
                                     <li key={id}>
-                                        <button className="btn btn-sm" onClick={that.onRemoveClick.bind(null, id)}>
-                                            <span className="glyphicon glyphicon-remove" />
-                                        </button> {todo.get('text')}
+                                        <Tag onRemove={that.onRemoveClick.bind(null, id)}>{todo.get('text')}</Tag>
                                     </li>
                                 );
                             })
