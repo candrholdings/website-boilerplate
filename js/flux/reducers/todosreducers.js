@@ -17,7 +17,7 @@ export default function todos(state = List(), action) {
     switch (action.type) {
     case todosactions.ADD_TODO:
         return state.push(Map({
-            id: Date.now(),
+            id: payload.id,
             text: payload.todo
         }));
 

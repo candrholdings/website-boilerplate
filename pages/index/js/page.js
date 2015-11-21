@@ -23,7 +23,7 @@ export default ReactRedux.connect(state => {
         };
     },
     onAddClick: function (evt) {
-        this.props.dispatch(todosactions.addTodo(this.state.newTodo));
+        this.props.dispatch(todosactions.addTodo(Date.now(), this.state.newTodo));
         this.setState({ newTodo: null });
     },
     onRemoveClick: function (id) {

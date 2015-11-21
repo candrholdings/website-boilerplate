@@ -4,10 +4,10 @@ const ACTIONS_PREFIX = 'TODO/';
 
 export const ADD_TODO = ACTIONS_PREFIX + 'ADD_TODO';
 
-export function addTodo(todo) {
+export function addTodo(id, todo) {
     return {
         type: ADD_TODO,
-        payload: {todo}
+        payload: {id, todo}
     };
 }
 
