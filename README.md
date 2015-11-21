@@ -12,6 +12,7 @@ Before using this repository, please read and accept licenses of corresponding l
 * [Redux](https://github.com/rackt/redux)
 * [Reselect](https://github.com/rackt/reselect)
 * [Bootstrap](https://getbootstrap.com)
+* [SystemJS](https://github.com/systemjs/systemjs/)
 * [PublishJS](https://github.com/candrholdings/publishjs)
 * [Q](https://github.com/kriskowal/q)
 * [`window.fetch` polyfill](https://github.com/github/fetch)
