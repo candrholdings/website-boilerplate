@@ -1,16 +1,17 @@
 'use strict';
 
-import * as todosactions from 'todosactions';
+import * as todosactions from 'flux/actions/todosactions';
 
 var {
         Immutable,
         Redux
     } = window,
     {
+        List,
         Map
     } = Immutable;
 
-function todos(state = 0, action) {
+export default function todos(state = List(), action) {
     var {payload} = action;
 
     switch (action.type) {
@@ -27,7 +28,3 @@ function todos(state = 0, action) {
         return state;
     }
 }
-
-export default {
-    todos
-};

@@ -1,12 +1,12 @@
 'use strict';
 
-import * as messageofthedayactions from 'messageofthedayactions';
+import * as messageofthedayactions from 'flux/actions/messageofthedayactions';
 
 const FETCH_MESSAGE_OF_THE_DAY_PENDING = messageofthedayactions.FETCH_MESSAGE_OF_THE_DAY + '_PENDING';
 const FETCH_MESSAGE_OF_THE_DAY_FULFILLED = messageofthedayactions.FETCH_MESSAGE_OF_THE_DAY + '_FULFILLED';
 const FETCH_MESSAGE_OF_THE_DAY_REJECTED = messageofthedayactions.FETCH_MESSAGE_OF_THE_DAY + '_REJECTED';
 
-export default function messageOfTheDay(state = 0, action) {
+export default function messageOfTheDay(state = '', action) {
     switch (action.type) {
     case FETCH_MESSAGE_OF_THE_DAY_PENDING:
         return '<Loading message of the day>';

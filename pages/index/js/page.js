@@ -1,17 +1,15 @@
-import * as messageofthedayactions from 'messageofthedayactions';
-import * as todosactions from 'todosactions';
+import * as messageofthedayactions from 'flux/actions/messageofthedayactions';
+import * as todosactions from 'flux/actions/todosactions';
 
 var {
         ReactRedux
-    } = this;
+    } = window;
 
-function select(state) {
+export default ReactRedux.connect(state => {
     var {messageOfTheDay, todos} = state;
 
     return {messageOfTheDay, todos};
-}
-
-export default ReactRedux.connect(select)(window.React.createClass({
+})(window.React.createClass({
     componentDidMount: function () {
         this.props.dispatch(messageofthedayactions.fetchMessageOfTheDay());
     },
@@ -35,7 +33,8 @@ export default ReactRedux.connect(select)(window.React.createClass({
     },
     render: function () {
         var that = this,
-            {props, state} = that;
+            {props, state} = that,
+            {todos} = props;
 
         return (
             <div className="container">
@@ -45,7 +44,7 @@ export default ReactRedux.connect(select)(window.React.createClass({
                         <pre>{props.messageOfTheDay}</pre>
                         <ul>
                         {
-                            props.todos.map(todo => {
+                            todos && todos.map(todo => {
                                 var id = todo.get('id');
 
                                 return (

@@ -24,3 +24,33 @@ function assertResponseStatus(res, expectedStatus) {
         throw new Error(`Server returned ${status}`);
     }
 }
+
+// export const FETCH_MESSAGE_OF_THE_DAY_PENDING = 'FETCH_MESSAGE_OF_THE_DAY_PENDING';
+// export const FETCH_MESSAGE_OF_THE_DAY_FULFILLED = 'FETCH_MESSAGE_OF_THE_DAY_FULFILLED';
+// export const FETCH_MESSAGE_OF_THE_DAY_REJECTED = 'FETCH_MESSAGE_OF_THE_DAY_PENDING';
+
+// function fetchMessageOfTheDayPending() {
+//     return { type: FETCH_MESSAGE_OF_THE_DAY_PENDING };
+// }
+
+// function fetchMessageOfTheDayFulfilled(payload) {
+//     return { type: FETCH_MESSAGE_OF_THE_DAY_FULFILLED, payload };
+// }
+
+// function fetchMessageOfTheDayRejected(err) {
+//     return { type: FETCH_MESSAGE_OF_THE_DAY_REJECTED, payload: err, error: true };
+// }
+
+// export function fetchMessageOfTheDay() {
+//     return function (dispatch) {
+//         dispatch(fetchMessageOfTheDayPending());
+
+//         window.fetch('...')
+//             .then(res => res.text())
+//             .then(text => dispatch(fetchMessageOfTheDayFulfilled(text)))
+//             .catch(err => {
+//                 dispatch(fetchMessageOfTheDayRejected(err);
+//                 throw err;
+//             });
+//     };
+// }

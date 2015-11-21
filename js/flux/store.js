@@ -2,10 +2,11 @@
 
 'use strict';
 
-import * as todosreducers from 'todosreducers';
-import {default as messageOfTheDay} from 'messageofthedayreducer';
-import {default as DevTools} from 'devtools';
-import {default as promiseMiddleware} from 'ReduxPromiseMiddleware';
+import {default as todos} from 'flux/reducers/todosreducers';
+import {default as messageOfTheDay} from 'flux/reducers/messageofthedayreducer';
+import {default as DevTools} from 'flux/devtools';
+
+var promiseMiddleware = window.ReduxPromiseMiddleware;
 
 var {
         Immutable,
@@ -15,17 +16,17 @@ var {
         List
     } = Immutable;
 
-const finalCreateStore = Redux.applyMiddleware(promiseMiddleware(), window.ReduxThunk)(Redux.compose(
+const finalCreateStore = Redux.applyMiddleware(
+    promiseMiddleware(),
+    window.ReduxThunk
+)(Redux.compose(
     DevTools.instrument(),
     window.ReduxDevTools.persistState(window.location.href.match(/[?&]debug_session=([^&]+)\b/))
 )(Redux.createStore));
 
 const rootReducer = Redux.combineReducers({
-    ...todosreducers,
+    todos,
     messageOfTheDay
 });
 
-export default finalCreateStore(rootReducer, {
-    todos: List(),
-    messageOfTheDay: ''
-});
+export default finalCreateStore(rootReducer, {});

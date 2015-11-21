@@ -4,6 +4,10 @@
     'use strict';
 
     var program = require('commander'),
+        babelOptions = {
+            modules: 'system',
+            moduleIds: true
+        },
         jshintOptions = {
             browser: true,
             esnext: false,
@@ -40,6 +44,7 @@
             jsx: require('publishjs-jsx'),
             pngout: program.nomin ? 'noop' : require('publishjs-pngout'),
             jshint: require('publishjs-jshint'),
+            rename: require('./publishjs-rename'),
             uglify: program.nomin ? 'noop' : require('publishjs-uglify')
         },
         pipes: {
@@ -51,13 +56,6 @@
                     .save('css/all.css')
                     .run(callback);
             },
-            'less.pages': function (pipe, callback) {
-                pipe.from('less.pages/')
-                    .less()
-                    .cssmin()
-                    .save('css/')
-                    .run(callback);
-            },
             'css.lib': function (pipe, callback) {
                 pipe.from('css.lib/')
                     .save('css/')
@@ -66,14 +64,6 @@
             fonts: function (pipe, callback) {
                 pipe.from('fonts/')
                     .save('fonts/')
-                    .run(callback);
-            },
-            html: function (pipe, callback) {
-                pipe.from('html/')
-                    .assemble()
-                    .jsx({ blacklist: ['strict'], modules: 'umd' })
-                    .jshint(jshintOptions)
-                    .save('./')
                     .run(callback);
             },
             img: function (pipe, callback) {
@@ -88,28 +78,9 @@
                     .run(callback);
             },
             js: function (pipe, callback) {
-                pipe.from([
-                        // pipe.from('js.redux')
-                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
-                        //     .merge('1-redux.js'),
-                        // pipe.from('js.react-redux')
-                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
-                        //     .merge('2-react-redux.js')
-                        //     .save('2-react-redux.js'),
-                        // pipe.from('js.redux-devtools')
-                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
-                        //     .merge('3-redux-devtools.js'),
-                        // pipe.from('js.redux-devtools-dock-monitor')
-                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
-                        //     .merge('4-redux-devtools-dock-monitor.js'),
-                        // pipe.from('js.redux-devtools-log-monitor')
-                        //     .jsx({ modules: 'umd', loose: 'all', stage: 0 })
-                        //     .merge('5-redux-devtools-log-monitor.js'),
-                        pipe.from('js/')
-                            .jsx({ blacklist: ['strict'], modules: 'umd' })
-                            // .jshint(jshintOptions)
-                            .merge('9-others.js')
-                    ])
+                pipe.from('js/')
+                    .jsx(babelOptions)
+                    .jshint(jshintOptions)
                     .merge()
                     .uglify()
                     .save('js/all.js')
@@ -117,13 +88,55 @@
             },
             'js.lib': function (pipe, callback) {
                 pipe.from(program.nomin ? 'js.lib/' : 'js.lib.min/')
-                    .merge('lib.js')
+                    .merge()
                     .save('js/lib.js')
                     .run(callback);
             },
             json: function (pipe, callback) {
                 pipe.from('json/')
                     .save('json/')
+                    .run(callback);
+            },
+            pages: function (pipe, callback) {
+                pipe.from(['index'].map(name => {
+                    return (
+                        pipe.from([
+                            pipe.from(`pages/${name}/js/`)
+                                .jsx(babelOptions)
+                                .jshint(jshintOptions)
+                                .uglify()
+                                .merge()
+                                .save(`js/${name}.html.js`),
+                            pipe.from([
+                                    pipe.from('less/constants/')
+                                        .merge('1-constants.less'),
+                                    pipe.from(`pages/${name}/less/`)
+                                        .merge('2-pages.less')
+                                ])
+                                .merge()
+                                .less()
+                                .cssmin()
+                                .save(`css/${name}.html.css`)
+                        ])
+                    );
+                })).run(callback);
+            },
+            'pages.html': function (pipe, callback) {
+                pipe.from('pages/')
+                    .rename(filename => {
+                        if (/^__layout\//.test(filename)) {
+                            return filename;
+                        } else if (/\.html$/.test(filename)) {
+                            return filename.split('/').pop();
+                        } else {
+                            return false;
+                        }
+                    })
+                    .assemble()
+                    .jsx(Object.assign({ moduleId: 'main' }, babelOptions))
+                    .less()
+                    .cssmin()
+                    .save('./')
                     .run(callback);
             }
         },

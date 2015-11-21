@@ -14,15 +14,16 @@
 ---
 
 --- javascript
+<script type="text/javascript" src="js/index.html.js"></script>
 <script type="text/jsx">
 'use strict';
 
-import {default as Page} from 'indexpage';
-import {default as store} from 'store';
-import {default as DevTools} from 'devtools';
+import {default as Page} from 'page';
+import {default as store} from 'flux/store';
+import {default as DevTools} from 'flux/devtools';
 
 ReactDOM.render(
-    <window.ReactRedux.Provider store={store}>    
+    <window.ReactRedux.Provider store={store}>
         <div>
             <Page />
             <DevTools />
@@ -31,4 +32,5 @@ ReactDOM.render(
     document.getElementById('root')
 );
 </script>
+<script type="text/javascript">System.import('main');</script>
 ---
