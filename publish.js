@@ -7,7 +7,8 @@
     program = require('commander'),
     babelOptions = {
       modules: 'system',
-      moduleIds: true
+      moduleIds: true,
+      sourceMaps: true
     },
     jshintOptions = {
       browser: true,
@@ -41,6 +42,7 @@
     ],
     processors: {
       assemble: require('publishjs-assemble'),
+      concatJS: require('./publishjs-concatjs'),
       cssmin: program.nomin ? 'noop' : require('publishjs-cssmin'),
       less: require('publishjs-less'),
       jsx: require('publishjs-jsx'),
@@ -51,9 +53,12 @@
     },
     pipes: {
       less: function (pipe, callback) {
-        pipe.from([
-            pipe.from('less/'),
-            pipe.from('widgets/')
+        pipe
+          .from([
+            pipe
+              .from('less/'),
+            pipe
+              .from('widgets/')
               .rename(filename => /\.(le|c)ss$/.test(filename) ? filename : 0)
           ])
           .merge()
@@ -63,31 +68,38 @@
           .run(callback);
       },
       'css.lib': function (pipe, callback) {
-        pipe.from('css.lib/')
+        pipe
+          .from('css.lib/')
           .save('css/')
           .run(callback);
       },
       fonts: function (pipe, callback) {
-        pipe.from('fonts/')
+        pipe
+          .from('fonts/')
           .save('fonts/')
           .run(callback);
       },
       img: function (pipe, callback) {
-        pipe.from('img/')
+        pipe
+          .from('img/')
           .pngout()
           .save('img/')
           .run(callback);
       },
       'img.min': function (pipe, callback) {
-        pipe.from('img.min/')
+        pipe
+          .from('img.min/')
           .save('img/')
           .run(callback);
       },
       js: function (pipe, callback) {
-        pipe.from([
-            pipe.from('js/')
+        pipe
+          .from([
+            pipe
+              .from('js/')
               .jsx(babelOptions),
-            pipe.from('widgets/')
+            pipe
+              .from('widgets/')
               .rename(filename => {
                 if (/\.js$/.test(filename)) {
                   return 'widgets/' + filename.split('/').pop();
@@ -98,19 +110,21 @@
               .jsx(babelOptions)
           ])
           .jshint(jshintOptions)
-          .merge()
+          .concatJS({ filename: 'all.js' })
           .uglify()
-          .save('js/all.js')
+          .save('js/')
           .run(callback);
       },
       'js.lib': function (pipe, callback) {
-        pipe.from(program.nomin ? 'js.lib/' : 'js.lib.min/')
+        pipe
+          .from(program.nomin ? 'js.lib/' : 'js.lib.min/')
           .merge()
           .save('js/lib.js')
           .run(callback);
       },
       json: function (pipe, callback) {
-        pipe.from('json/')
+        pipe
+          .from('json/')
           .save('json/')
           .run(callback);
       },
@@ -118,28 +132,37 @@
         pipe.from(['index'].map(name => {
           return (
             pipe.from([
-              pipe.from(`pages/${name}/js/`)
-                .jsx(babelOptions)
+              pipe
+                .from(`pages/${name}/js/`)
+                .jsx(Object.assign({
+                  sourceFileName: filename => `../pages/${name}/js/${filename}`
+                }, babelOptions))
                 .jshint(jshintOptions)
+                .concatJS({
+                  filename: `${name}.html.js`
+                })
                 .uglify()
-                .merge()
-                .save(`js/${name}.html.js`),
-              pipe.from([
-                  pipe.from('less/constants.less')
+                .save('js/'),
+              pipe
+                .from([
+                  pipe
+                    .from('less/constants.less')
                     .merge('1-constants.less'),
-                  pipe.from(`pages/${name}/less/`)
+                  pipe
+                    .from(`pages/${name}/less/`)
                     .merge('2-pages.less')
                 ])
                 .merge()
                 .less()
                 .cssmin()
                 .save(`css/${name}.html.css`)
-            ])
+              ])
           );
         })).run(callback);
       },
       'pages.html': function (pipe, callback) {
-        pipe.from('pages/')
+        pipe
+          .from('pages/')
           .rename(filename => {
             if (/^__layout\//.test(filename)) {
               return filename;
