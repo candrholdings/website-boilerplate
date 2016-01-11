@@ -21,6 +21,7 @@
     "test": "vows src/test/*-test.js --spec"
   },
   "dependencies": {
+    "clean-css": "^3.4.9",
     "commander": "^2.8.1",
     "publishjs": "^0.0.4",
     "publishjs-assemble": "^0.0.3",

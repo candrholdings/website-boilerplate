@@ -10,6 +10,10 @@
       moduleIds: true,
       sourceMaps: true
     },
+    cleanCSSOptions = {
+      sourceMap: true,
+      sourceMapInlineSources: true
+    },
     jshintOptions = {
       browser: true,
       esnext: false,
@@ -42,6 +46,7 @@
     ],
     processors: {
       assemble: require('publishjs-assemble'),
+      cleanCSS: program.nomin ? 'noop' : require('./publishjs-clean-css'),
       concatJS: require('./publishjs-concatjs'),
       cssmin: program.nomin ? 'noop' : require('publishjs-cssmin'),
       less: require('publishjs-less'),
@@ -61,10 +66,10 @@
               .from('widgets/')
               .rename(filename => /\.(le|c)ss$/.test(filename) ? filename : 0)
           ])
-          .merge()
+          .merge('all.css')
           .less()
-          .cssmin()
-          .save('css/all.css')
+          .cleanCSS(cleanCSSOptions)
+          .save('css/')
           .run(callback);
       },
       'css.lib': function (pipe, callback) {
@@ -152,10 +157,10 @@
                     .from(`pages/${name}/less/`)
                     .merge('2-pages.less')
                 ])
-                .merge()
+                .merge(`${name}.html.css`)
                 .less()
-                .cssmin()
-                .save(`css/${name}.html.css`)
+                .cleanCSS(cleanCSSOptions)
+                .save(`css/`)
               ])
           );
         })).run(callback);
@@ -175,7 +180,7 @@
           .assemble()
           .jsx(Object.assign({ moduleId: 'main' }, babelOptions))
           .less()
-          .cssmin()
+          .cleanCSS(cleanCSSOptions)
           .save('./')
           .run(callback);
       }
