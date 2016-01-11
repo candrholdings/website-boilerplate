@@ -36,6 +36,12 @@
       outputFilename = args.filename || DEFAULT_OUTPUT_FILENAME + path.extname(Object.keys(allInputs)[0]),
       sourceNode = new SourceNode();
 
+    // If there is a single file added, changed, or deleted, we will need to redo the merge
+    if (!inputs.deleted.length && !Object.keys(inputs.newOrChanged).length) {
+      this.log('No new, changed, or deleted files, reusing cached output');
+      return callback(null, outputs);
+    }
+
     let
       numJavaScript = 0,
       numSourceMaps = 0;
