@@ -49,7 +49,7 @@
     ],
     processors: {
       assemble: require('publishjs-assemble'),
-      cleanCSS: program.nomin ? 'noop' : require('./publishjs-clean-css'),
+      cleanCSS: program.nomin ? 'noop' : require('publishjs-clean-css'),
       concatJS: require('./publishjs-concatjs'),
       cssmin: program.nomin ? 'noop' : require('publishjs-cssmin'),
       less: require('publishjs-less'),

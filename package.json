@@ -25,6 +25,7 @@
     "commander": "^2.8.1",
     "publishjs": "^0.0.7",
     "publishjs-assemble": "^0.0.3",
+    "publishjs-clean-css": "0.0.6",
     "publishjs-cssmin": "^0.0.3",
     "publishjs-jshint": "^0.0.3",
     "publishjs-jsx": "^0.0.4",
