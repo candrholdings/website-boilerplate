@@ -8,10 +8,10 @@
     babelOptions = {
       modules: 'system',
       moduleIds: true,
-      sourceMaps: true
+      sourceMaps: !!program.nomin
     },
     cleanCSSOptions = {
-      sourceMap: true,
+      sourceMap: !!program.nomin,
       sourceMapInlineSources: true
     },
     jshintOptions = {
@@ -19,6 +19,9 @@
       esnext: false,
       expr: true,
       newcap: false
+    },
+    uglifyOptions = {
+      sourceMap: !!program.nomin
     },
     basedir = path.dirname(module.filename);
 
@@ -116,7 +119,7 @@
           ])
           .jshint(jshintOptions)
           .concatJS({ filename: 'all.js' })
-          .uglify()
+          .uglify(uglifyOptions)
           .save('js/')
           .run(callback);
       },
@@ -146,7 +149,7 @@
                 .concatJS({
                   filename: `${name}.html.js`
                 })
-                .uglify()
+                .uglify(uglifyOptions)
                 .save('js/'),
               pipe
                 .from([

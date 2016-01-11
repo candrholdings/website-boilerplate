@@ -23,7 +23,7 @@
   "dependencies": {
     "clean-css": "^3.4.9",
     "commander": "^2.8.1",
-    "publishjs": "^0.0.5",
+    "publishjs": "^0.0.7",
     "publishjs-assemble": "^0.0.3",
     "publishjs-cssmin": "^0.0.3",
     "publishjs-jshint": "^0.0.3",
