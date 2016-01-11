@@ -7,7 +7,7 @@
     SourceNode = SourceMap.SourceNode;
 
   const
-    DEFAULT_OUTPUT_FILENAME = 'concatenated.js',
+    DEFAULT_OUTPUT_FILENAME = 'concatenated',
     SOURCE_MAP_SUFFIX = '.map';
 
   module.exports = function (inputs, outputs, args, callback) {
@@ -33,7 +33,7 @@
     const
       that = this,
       allInputs = inputs.all,
-      outputFilename = args.filename || DEFAULT_OUTPUT_FILENAME,
+      outputFilename = args.filename || DEFAULT_OUTPUT_FILENAME + path.extname(Object.keys(allInputs)[0]),
       sourceNode = new SourceNode();
 
     let
